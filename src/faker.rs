@@ -1,27 +1,28 @@
-extern crate toml;
 use super::locale;
+use super::locale::Locale;
 use std::rand;
 
 pub struct Faker {
-    locale: toml::Value
+    locale: Locale
 }
 
 impl Faker {
 
-    pub fn new(locale: &str) -> Faker {
-        let map = locale::load();
-        let value: toml::Value = from_str(map.get(locale).unwrap().as_slice()).unwrap();
-        Faker{locale: value}
+    pub fn new() -> Faker {
+        Faker{locale: locale::en::load()}
     }
 
-    pub fn parse(&self) -> String {
-        self.locale.lookup("address.city_prefix").unwrap().to_string()
+    pub fn parse(&self) -> Vec<&'static str> {
+        self.locale.address.city_prefix.to_vec()
+    }
+
+    pub fn city_prefix(&self) -> String {
+        self.sample(self.locale.address.city_prefix.to_vec())
     }
 
     pub fn sample(&self, arr: Vec<&'static str>) -> String {
-        let idx = (rand::random::<uint>() % arr.len()) + 1u;
+        let idx = (rand::random::<uint>() % arr.len());
         arr[idx].to_string()
     }     
    
 }
-
