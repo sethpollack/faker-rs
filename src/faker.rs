@@ -8,8 +8,12 @@ pub struct Faker {
 
 impl Faker {
 
-    pub fn new() -> Faker {
-        Faker{locale: locale::en::load()}
+    pub fn new(locale: &str) -> Faker {
+        match locale {
+            "en" => Faker{locale: locale::en::load()},
+            "en_us" => Faker{locale: locale::en_us::load()},
+            _ => Faker{locale: locale::en::load()}
+        }
     }
 
     pub fn parse(&self) -> Vec<&'static str> {
@@ -21,7 +25,7 @@ impl Faker {
     }
 
     pub fn sample(&self, arr: Vec<&'static str>) -> String {
-        let idx = (rand::random::<uint>() % arr.len());
+        let idx = rand::random::<uint>() % arr.len();
         arr[idx].to_string()
     }     
    

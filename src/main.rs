@@ -1,8 +1,19 @@
+extern crate faker;
+use faker::Faker;
+
+
+fn main() {
+	let faker = Faker::new("en");
+	println!("{}", faker.city_prefix());
+}
+
+
+
 // extern crate toml;
-// // use std::os;
+// use std::os;
 // use std::io::File;
 // use std::io::fs;
-// // use std::str;
+// use std::str;
 
 
 // fn main() {
@@ -21,21 +32,6 @@
 // 		println!("{}",  lang);
 // 	}
 	
-
-
-// 	// let toml = File::open(p).read_to_string().unwrap();
-// 	// let value: toml::Value = from_str(toml).unwrap();
-// 	// let foo = value.lookup("lang").unwrap();
-// 	// println!("{}", c);
 // }
-// // city_prefix
 
 
-extern crate faker;
-use faker::Faker;
-
-
-fn main() {
-	let faker = Faker::new();
-	println!("{}", faker.city_prefix());
-}
